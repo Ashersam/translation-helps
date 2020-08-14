@@ -12,15 +12,6 @@ const theme = createMuiTheme({
       contrastText: '#FFF'
     },
   },
-  overrides: {
-    MuiBottomNavigationAction: {
-      label: {
-        '&$selected': {
-          fontSize: '0.8rem',
-        },
-      },
-    },
-  },
 });
 
 export default theme;

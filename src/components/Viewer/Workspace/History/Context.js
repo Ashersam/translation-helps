@@ -24,7 +24,7 @@ const Component = ({
   },
   context,
   context: {
-    organization,
+    username,
     languageId,
     resourceId,
     reference,

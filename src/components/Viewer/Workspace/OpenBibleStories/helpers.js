@@ -22,20 +22,20 @@ export const frameData = ({frameMarkdown}) => {
   return data;
 }
 
-export async function fetchStory({organization, languageId, storyId}) {
+export async function fetchStory({username, languageId, storyId}) {
   const repository = gitApi.resourceRepositories({languageId}).obs;
   const numberPadded = (storyId < 10) ? `0${storyId}` : `${storyId}`;
   const path = `content/${numberPadded}.md`;
-  const storyMarkdown = await gitApi.getFile({organization, repository, path});
+  const storyMarkdown = await gitApi.getFile({username, repository, path});
   const frames = framesFromStory({storyMarkdown});
   return frames;
 };
 
-export async function fetchOpenBibleStories({organization, languageId}) {
+export async function fetchOpenBibleStories({username, languageId}) {
   const storyIds = [...Array(51).keys()].splice(1);
   let stories = {};
   const promises = storyIds.map(storyId =>
-    fetchStory({organization, languageId, storyId})
+    fetchStory({username, languageId, storyId})
   );
   const storyArray = await Promise.all(promises);
   storyIds.forEach((storyId, index) => {

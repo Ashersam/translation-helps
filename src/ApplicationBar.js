@@ -27,21 +27,14 @@ const ApplicationBar = ({
     const project = ScriptureHelpers.projectByBookId({projects, bookId});
     bookName = project ? project.title : '';
   }
-  const logoWordMark = (
-    <img className={classes.logo} src='./uw-logo-wordmark.png' alt="unfoldingWord" />
-  );
-  const logoIcon = (
-    <img className={classes.logo} src='./uw-logo-icon.png' alt="unfoldingWord" />
-  );
-  const logo = (bookName) ? logoIcon : logoWordMark;
-  const referenceComponent = (bookName ? <span>{bookName} {chapter}</span> : <span />);
+  const referenceComponent = (bookName ? <span>&nbsp;&nbsp;{bookName} {chapter}</span> : <span />);
 
   return (
     <Headroom>
       <div className={classes.paper}>
-        <div className={classes.root}>
-          {logo}
-          <Typography variant="h6" color="inherit" className={classes.title} inline noWrap>
+        <div className={classes.toolbar}>
+          <img className={classes.logo} src="./logo.png" alt="unfoldingWord" />
+          <Typography variant="h6" color="inherit" className={classes.coin} noWrap>
             {referenceComponent}
           </Typography>
         </div>
@@ -67,22 +60,14 @@ const styles = theme => ({
                '0px 2px 2px 0px rgba(0, 0, 0, 0.14),' +
                '0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
   },
-  root: {
-    paddingTop: 'calc(env(safe-area-inset-top) * 0.75)',
+  toolbar: {
     margin: 'auto',
     display: 'inline-flex',
-    maxWidth: '40em',
+    padding: '1em 0',
   },
   logo: {
-    height: '2em',
-    margin: '8px',
-  },
-  title: {
-    lineHeight: '200%',
-    fontSize: 'calc(0.6vw + 1em)',
-    paddingTop: 'calc(0.5em - 0.8vw)',
-    overflow: 'unset',
-    textOverflow: 'unset',
+    height: '1.8em',
+    paddingTop: '0.25em',
   },
 });
 

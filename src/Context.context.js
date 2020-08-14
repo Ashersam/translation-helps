@@ -1,28 +1,38 @@
-import React, { createContext, useState } from 'react';
-import useEffect from 'use-deep-compare-effect';
+import React, {
+  createContext,
+  useState
+} from 'react';
 import deepFreeze from 'deep-freeze';
 
-import { updateQueryFromContext, contextFromQuery, validateContext } from './helpers';
+import { updateQueryFromContext, contextFromQuery } from './helpers';
+import * as chapterAndVerses from './components/Viewer/chaptersAndVerses';
 
 export const ContextContext = createContext();
 
-const defaultContext = {
-  organization: 'door43-catalog',
-  languageId: 'en',
-};
-
 export function ContextContextProvider({children}) {
+  const defaultContext = () => {
+    return {
+      username: 'unfoldingword',
+      languageId: 'en',
+    }
+  };
   const queryContext = contextFromQuery();
   const _defaultContext = queryContext || defaultContext();
 
   const [context, setContext] = useState(_defaultContext);
 
-  useEffect(() => {
-    updateQueryFromContext(context);
-    window.scrollTo(0,0);
-  }, [context]);
+  const validateContext = (_context) => {
+    const {resourceId, reference} = _context;
+    let valid;
+    valid = (!resourceId && !reference); // valid if neither is set
+    if (resourceId && reference) {
+      const validReference = chapterAndVerses.validateReference({reference});
+      valid = (resourceId && validReference);
+    }
+    return valid;
+  };
 
-  const updateContext = async (_context) => {
+  const updateContext = async (_context, back=false) => {
     // allow navigation to Resources selection
     const emptyResourceId = (!_context.reference || !_context.resourceId);
     let shouldSetContext;
@@ -37,6 +47,8 @@ export function ContextContextProvider({children}) {
     if (validContext) shouldSetContext = true;
     if (shouldSetContext) {
       setContext(_context);
+      updateQueryFromContext(_context);
+      window.scrollTo(0,0);
     }
   };
 

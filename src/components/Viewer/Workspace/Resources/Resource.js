@@ -25,7 +25,7 @@ const Component = ({
     }
   },
   context: {
-    organization,
+    username,
     languageId,
   },
   setContext,
@@ -36,7 +36,7 @@ const Component = ({
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           {subject}
         </Typography>
-        <Typography variant="h6" component="h3">
+        <Typography variant="h5" component="h2">
           {title}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
@@ -54,7 +54,7 @@ const Component = ({
           color="primary"
           onClick={() => {
             const resourceId = identifier;
-            const context = {organization, languageId, resourceId};
+            const context = {username, languageId, resourceId};
             setContext(context);
           }}
         >

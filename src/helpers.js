@@ -1,22 +1,10 @@
 import localstorage from 'local-storage';
-import * as chapterAndVerses from './components/Viewer/chaptersAndVerses';
-
-export const validateContext = (context) => {
-  const {resourceId, reference} = context;
-  let valid;
-  valid = (!resourceId && !reference); // valid if neither is set
-  if (resourceId && reference) {
-    const validReference = chapterAndVerses.validateReference({reference});
-    valid = (resourceId && validReference);
-  }
-  return valid;
-};
 
 export const updateQueryFromContext = (context) => {
   let reference = context.reference || {};
   const _context = {...context, reference};
   const {
-    organization,
+    username,
     languageId,
     resourceId,
     reference: {
@@ -25,7 +13,7 @@ export const updateQueryFromContext = (context) => {
       verse,
     },
   } = _context;
-  const _organization = organization ? `owner=${organization}` : '';
+  const _username = username ? `owner=${username}` : '';
   const _languageId = languageId ? `/${languageId}` : '';
   const _resourceId = resourceId ? `/${resourceId}` : '';
   const _bookId = bookId ? `/${bookId}` : '';
@@ -33,18 +21,18 @@ export const updateQueryFromContext = (context) => {
   const _verse = verse ? `/${verse}` : '';
   const rc = `&rc=${_languageId}${_resourceId}${_bookId}${_chapter}${_verse}`
   const path = window.location.pathname;
-  const query = `${path}?${_organization}${rc}`;
+  const query = `${path}?${_username}${rc}`;
   window.history.pushState(context, null, query);
 };
 
 export const contextFromQuery = () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const organization = urlParams.get('owner') || 'door43-catalog';
+  const username = urlParams.get('owner') || 'unfoldingword';
   const rc = urlParams.get('rc') || ''
   const rcArray = rc.slice(1).split('/').filter(string => string);
   const [languageId, resourceId, bookId, chapter, verse] = rcArray;
   return {
-    organization,
+    username: username,
     languageId: languageId || 'en',
     resourceId: resourceId,
     reference: {

@@ -9,6 +9,7 @@ import ExpansionPanel from './ExpansionPanel';
 import Verse from './Verse';
 
 import {ResourcesContext} from '../Resources.context';
+import swal from 'sweetalert';
 
 export const Chapter = ({
   classes,
@@ -30,6 +31,20 @@ export const Chapter = ({
   } = useContext(ResourcesContext);
 
   const resource = resources[resourceId];
+  if((resource.data)===null){
+    swal({
+      title: "Sorry :(",
+      text: "The book is not available yet!",
+      icon: "warning",
+      buttons: false
+    })
+    const timer = window.setInterval(() => {
+      window.location.reload()
+    }, 2000);
+    return () => { // Return callback to run on unmount.
+      window.clearInterval(timer);
+    };
+  }
   const verses = Object.keys(resource.data[chapter])
   // .filter(verseKey => {
   //   return /\d+/g.test(verseKey); // don't show front/intro

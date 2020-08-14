@@ -31,12 +31,12 @@ class Container extends React.Component {
       storyKey,
       frameKey,
       context: {
-        organization,
+        username,
         languageId,
         reference,
       },
     } = this.props;
-    const helps = await thHelpers.fetchHelps({organization, languageId, storyKey, frameKey});
+    const helps = await thHelpers.fetchHelps({username, languageId, storyKey, frameKey});
     this.setState({helps});
     if (parseInt(reference.verse) === parseInt(frameKey)) {
       this.scrollToId();

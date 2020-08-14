@@ -50,7 +50,7 @@ export const Component = ({
     />
   );
   const loadingComponent = (
-    <CircularProgress className={classes.progress} color="secondary" disableShrink />
+    <CircularProgress className={classes.progress} style={{width: "100px", height:"100px", marginTop: "250px"}} color="secondary" disableShrink />
   );
 
   let component = loadingComponent;

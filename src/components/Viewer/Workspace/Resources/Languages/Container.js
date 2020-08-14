@@ -20,9 +20,9 @@ class Container extends React.Component {
   };
 
   async componentDidMount() {
-    const {organization} = this.props.context;
+    const {username} = this.props.context;
     const resourceIds = ['ult','ust','ulb','udb','irv','obs'];
-    const languages = await getLanguages({organization, resourceIds});
+    const languages = await getLanguages({username, resourceIds});
     this.setState({languages});
   };
 

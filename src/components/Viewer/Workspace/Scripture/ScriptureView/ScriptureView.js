@@ -16,6 +16,7 @@ import * as ScriptureHelpers from '../helpers';
 
 import {ResourcesContext} from '../Resources.context';
 import {LemmaIndexContextProvider} from './AlignmentsTable/LemmaIndex.context';
+import swal from 'sweetalert';
 
 export const ScriptureView = ({
   classes,
@@ -70,6 +71,20 @@ export const ScriptureView = ({
     />
   );
   const resource = resources[resourceId];
+  if((resource.manifest)===null) {
+    swal({
+      title: "Sorry :(",
+      text: "The book is not available yet!",
+      icon: "warning",
+      buttons: false
+    })
+    const timer = window.setInterval(() => {
+      window.location.reload()
+    }, 2000);
+    return () => { // Return callback to run on unmount.
+      window.clearInterval(timer);
+    };
+  } 
   const {projects} = resource.manifest;
   const project = ScriptureHelpers.projectByBookId({projects, bookId});
   const bookName = project ? project.title : '';

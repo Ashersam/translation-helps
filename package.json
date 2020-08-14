@@ -1,9 +1,20 @@
 {
-  "name": "translation-helps",
+  "name": "translation-helps-patch",
   "homepage": "https://unfoldingword-box3.github.io/translation-helps/",
-  "version": "0.1.7",
+  "version": "0.1.13",
+  "description": "Patched Translation helps to integrate with react application like autographa",
+  "main": "dist/Viewer/index.js",
+  "module": "dist/Viewer/index.js",
+  "files": [
+    "dist"
+  ],
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/friendsofagape/translation-helps.git"
+  },
   "dependencies": {
+    "@bit/bit.envs.compilers.react": "^1.0.20",
     "@capacitor/android": "^1.0.0-beta.19",
     "@capacitor/cli": "^1.0.0-beta.19",
     "@capacitor/core": "^1.0.0-beta.19",
@@ -34,6 +45,7 @@
     "remark-parse": "^6.0.3",
     "remark-react": "^5.0.0",
     "request-promise": "^4.2.2",
+    "sweetalert": "^2.1.0",
     "use-deep-compare-effect": "^1.3.1",
     "usfm-js": "^2.0.0"
   },
@@ -43,6 +55,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "yarn build",
+    "builddist": "rimraf dist && NODE_ENV=production babel src/components --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
@@ -51,6 +64,12 @@
       "react-hooks"
     ]
   },
+  "keywords": [
+    "translationhelps",
+    "translationhelpsintegration",
+    "translationnotes",
+    "openbiblestories"
+  ],
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -58,8 +77,18 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "babel-preset-react-app": "^7.0.1",
     "eslint-config-react-app": "^5.0.1",
     "eslint-plugin-react-hooks": "^1.0.1",
-    "gh-pages": "^2.0.1"
+    "gh-pages": "^2.0.1",
+    "rimraf": "^2.6.3"
+  },
+  "bit": {
+    "env": {
+      "compiler": "bit.envs/compilers/react@0.0.15"
+    },
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "npm"
   }
 }
