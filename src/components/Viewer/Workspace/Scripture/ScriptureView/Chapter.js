@@ -33,8 +33,8 @@ export const Chapter = ({
   const resource = resources[resourceId];
   if((resource.data)===null){
     swal({
-      title: "Sorry :(",
-      text: "The book is not available yet!",
+      title: "No Data",
+      text: "Sorry this data is not available yet.",
       icon: "warning",
       buttons: false
     })

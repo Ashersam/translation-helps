@@ -1,7 +1,7 @@
 {
   "name": "translation-helps-patch",
   "homepage": "https://unfoldingword-box3.github.io/translation-helps/",
-  "version": "0.1.13",
+  "version": "0.1.15",
   "description": "Patched Translation helps to integrate with react application like autographa",
   "main": "dist/Viewer/index.js",
   "module": "dist/Viewer/index.js",
